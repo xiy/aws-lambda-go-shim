@@ -53,8 +53,16 @@ ENV PATH /usr/local/go/bin:/shim:$PATH
 
 RUN true\
   && yum -q -e 0 -y update || true\
-  && yum -q -e 0 -y install gcc zip findutils || true\
+  && yum -q -e 0 -y install gcc gcc-c++ zlib-devel expat-devel libjpeg-devel glib2-devel zip findutils || true\
   && yum -q -e 0 -y clean all
+
+ADD src/vips-8.5.8 vips
+
+RUN true\
+  && cd vips\
+  && ./configure\
+  && make\
+  && make install
 
 COPY --from=builder /usr/local/go /usr/local/go
 COPY --from=builder dist /shim
