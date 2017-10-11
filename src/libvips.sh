@@ -7,4 +7,7 @@ echo "Building libvips for Amazon Linux..."
 cd vips-8.5.8
 ./configure && make && make install
 
-echo "Finished building libvips!"
+echo "Finished building libvips! Removing junk..."
+
+cd ..
+rm -rf vips-8.5.8
